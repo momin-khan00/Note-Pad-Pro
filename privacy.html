@@ -4,167 +4,148 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy | Note Pad Pro</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700&display=swap" rel="stylesheet">
 
     <style>
-        body {
-            margin: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;
-            background: #0b0f1a;
-            color: #e5e7eb;
-            line-height: 1.7;
-        }
+        :root { --bg: #000212; --primary: #3b82f6; --text: #ffffff; --glass: rgba(255,255,255,0.05); }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
 
-        header {
-            padding: 60px 20px;
-            text-align: center;
-            background: linear-gradient(135deg, #2563eb, #4f46e5);
-        }
+        /* CURSOR */
+        .cursor-dot { width: 8px; height: 8px; background: white; position: fixed; border-radius: 50%; z-index: 9999; pointer-events: none; }
+        .cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.5); position: fixed; border-radius: 50%; z-index: 9999; pointer-events: none; transition: 0.1s; }
 
-        header h1 {
-            margin: 0;
-            font-size: 2.8rem;
-        }
+        /* LAYOUT */
+        .container { display: flex; max-width: 1200px; margin: 0 auto; padding: 100px 20px; gap: 50px; }
+        
+        /* SIDEBAR */
+        .sidebar { flex: 1; position: sticky; top: 100px; height: fit-content; display: none; }
+        .sidebar ul { list-style: none; border-left: 2px solid rgba(255,255,255,0.1); padding-left: 20px; }
+        .sidebar li { margin-bottom: 20px; }
+        .sidebar a { text-decoration: none; color: #64748b; transition: 0.3s; display: block; font-size: 0.9rem; }
+        .sidebar a:hover, .sidebar a.active { color: var(--primary); transform: translateX(10px); font-weight: bold; }
 
-        header p {
-            margin-top: 10px;
-            opacity: 0.9;
-        }
+        /* CONTENT */
+        .content { flex: 3; }
+        h1 { font-size: 3rem; margin-bottom: 20px; background: linear-gradient(to right, #fff, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .last-updated { color: #64748b; margin-bottom: 50px; display: block; font-family: monospace; }
 
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 40px 20px;
+        .policy-card {
+            background: var(--glass); border: 1px solid rgba(255,255,255,0.08);
+            padding: 40px; border-radius: 20px; margin-bottom: 30px;
+            opacity: 0; transform: translateY(30px); transition: 0.6s ease-out;
         }
+        .policy-card.visible { opacity: 1; transform: translateY(0); }
+        
+        .policy-card h2 { color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .policy-card p { line-height: 1.8; color: #cbd5e1; margin-bottom: 15px; }
+        .policy-card ul { margin-left: 20px; color: #94a3b8; }
+        .policy-card li { margin-bottom: 10px; }
 
-        h2 {
-            color: #93c5fd;
-            margin-top: 40px;
-        }
-
-        .card {
-            background: #111827;
-            border: 1px solid #1f2937;
-            border-radius: 14px;
-            padding: 25px;
-            margin-top: 20px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px 15px;
-            font-size: 0.9rem;
-            color: #9ca3af;
-            border-top: 1px solid #1f2937;
-        }
-
-        a {
-            color: #60a5fa;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
+        /* NAV */
+        .back-btn { position: fixed; top: 30px; left: 30px; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; font-weight: bold; z-index: 100; mix-blend-mode: difference;}
+        
+        @media (min-width: 768px) { .sidebar { display: block; } }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Privacy Policy</h1>
-    <p>Last updated: January 2026</p>
-</header>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
 
-<div class="container">
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
 
-    <div class="card">
-        <h2>1. Introduction</h2>
-        <p>
-            Welcome to <strong>Note Pad Pro</strong>. Your privacy is extremely important to us.
-            This Privacy Policy explains how our Android application handles user data.
-            By using this app, you agree to the practices described below.
-        </p>
+    <div class="container">
+        <!-- Sticky Sidebar -->
+        <div class="sidebar">
+            <ul>
+                <li><a href="#intro" class="active">1. Introduction</a></li>
+                <li><a href="#data">2. Data Collection</a></li>
+                <li><a href="#permissions">3. Permissions</a></li>
+                <li><a href="#security">4. Security</a></li>
+                <li><a href="#contact">5. Contact Us</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <h1>Privacy Policy</h1>
+            <span class="last-updated">LAST UPDATED: DECEMBER 25, 2025</span>
+
+            <div id="intro" class="policy-card">
+                <h2><i class="fas fa-info-circle"></i> Introduction</h2>
+                <p>Welcome to Note Pad Pro. Your privacy is not just a policy; it's our priority. We are committed to protecting your personal information and your right to privacy. Unlike other apps, we believe your notes belong only to you.</p>
+            </div>
+
+            <div id="data" class="policy-card">
+                <h2><i class="fas fa-database"></i> Data Collection</h2>
+                <p>We believe in the "Zero-Knowledge" principle.</p>
+                <ul>
+                    <li><strong>Local Storage:</strong> All your notes are stored locally on your device's internal database (SQLite).</li>
+                    <li><strong>No Cloud Uploads:</strong> We do not upload your notes to any external server.</li>
+                    <li><strong>Backup Files:</strong> If you use the Backup feature, the JSON file is stored strictly on your device storage.</li>
+                </ul>
+            </div>
+
+            <div id="permissions" class="policy-card">
+                <h2><i class="fas fa-key"></i> Permissions We Ask</h2>
+                <p>To provide advanced features, we need specific access:</p>
+                <ul>
+                    <li><strong>Biometric:</strong> To lock/unlock the app using your Fingerprint/Lock.</li>
+                    <li><strong>Notifications:</strong> To show Sticky Notes in your status bar.</li>
+                    <li><strong>Storage:</strong> To save PDF exports and Backup files.</li>
+                </ul>
+            </div>
+
+            <div id="security" class="policy-card">
+                <h2><i class="fas fa-shield-alt"></i> Security</h2>
+                <p>We use industry-standard encryption for the Biometric Lock feature. However, please note that since data is stored on your device, ensuring your device's security (screen lock) is your responsibility.</p>
+            </div>
+
+            <div id="contact" class="policy-card">
+                <h2><i class="fas fa-envelope"></i> Contact Us</h2>
+                <p>If you have any questions about this policy, please contact us:</p>
+                <p style="color: var(--primary); font-weight: bold;">all4you598@gmail.com</p>
+            </div>
+        </div>
     </div>
 
-    <div class="card">
-        <h2>2. Data Collection</h2>
-        <p>
-            <strong>Note Pad Pro does NOT collect, store, or transmit any personal data.</strong>
-            All notes, passwords, and backups are stored locally on your device only.
-            We do not use any external servers to store user content.
-        </p>
-    </div>
+    <script>
+        // Cursor
+        const dot = document.querySelector('.cursor-dot');
+        const outline = document.querySelector('.cursor-outline');
+        window.addEventListener('mousemove', e => {
+            const x = e.clientX, y = e.clientY;
+            dot.style.transform = `translate(${x}px, ${y}px)`;
+            outline.style.transform = `translate(${x - 20}px, ${y - 20}px)`;
+        });
 
-    <div class="card">
-        <h2>3. Permissions We Use</h2>
-        <p>
-            The app may request the following permissions to enable specific features:
-        </p>
-        <ul>
-            <li><strong>Notifications:</strong> Used for reminders, sticky notes, and alerts.</li>
-            <li><strong>Storage / Media Access:</strong> Used to create backups, restore notes, and export PDFs or images.</li>
-            <li><strong>Overlay (Draw over other apps):</strong> Used for the Floating Note feature.</li>
-            <li><strong>Biometric:</strong> Used to lock and unlock the app securely. Biometric data is never stored by us.</li>
-            <li><strong>Camera:</strong> Used only for OCR (Image-to-Text) and QR code scanning features.</li>
-        </ul>
-    </div>
+        // Scroll Reveal & Active Link
+        const cards = document.querySelectorAll('.policy-card');
+        const navLinks = document.querySelectorAll('.sidebar a');
 
-    <div class="card">
-        <h2>4. Advertisements</h2>
-        <p>
-            Note Pad Pro may display ads provided by third-party advertising services (such as Start.io).
-            These services may collect anonymous usage data to improve ad performance.
-            We do not share personal information with advertisers.
-        </p>
-    </div>
+        window.addEventListener('scroll', () => {
+            let current = "";
+            
+            cards.forEach(card => {
+                const top = card.getBoundingClientRect().top;
+                if (top < window.innerHeight - 100) {
+                    card.classList.add('visible');
+                    current = card.getAttribute('id');
+                }
+            });
 
-    <div class="card">
-        <h2>5. Cloud & Backup Features</h2>
-        <p>
-            When using backup or cloud-sharing features, the app allows you to export files
-            (such as JSON backups) and share them using your chosen apps or storage services.
-            We do not control or access these external services.
-        </p>
-    </div>
-
-    <div class="card">
-        <h2>6. Data Security</h2>
-        <p>
-            We use system-level security features such as app lock and biometric authentication
-            to protect your data. However, you are responsible for keeping your device secure.
-        </p>
-    </div>
-
-    <div class="card">
-        <h2>7. Children's Privacy</h2>
-        <p>
-            Note Pad Pro is safe for general audiences and does not knowingly collect any personal
-            information from children under the age of 13.
-        </p>
-    </div>
-
-    <div class="card">
-        <h2>8. Changes to This Policy</h2>
-        <p>
-            We may update this Privacy Policy from time to time.
-            Any changes will be reflected on this page with an updated date.
-        </p>
-    </div>
-
-    <div class="card">
-        <h2>9. Contact Us</h2>
-        <p>
-            If you have any questions or concerns regarding this Privacy Policy,
-            feel free to contact us at:
-            <br><br>
-            📧 <strong>all4you598@gmail.com</strong>
-        </p>
-    </div>
-
-</div>
-
-<footer>
-    © 2026 Note Pad Pro • Developed by MMN
-</footer>
-
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Trigger once
+        window.dispatchEvent(new Event('scroll'));
+    </script>
 </body>
 </html>
