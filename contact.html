@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Support | Note Pad Pro</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --bg: #020617; --primary: #3b82f6; --text: #fff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+
+        /* BACKGROUND */
+        canvas { position: absolute; top: 0; left: 0; z-index: -1; }
+
+        /* CURSOR */
+        .cursor { width: 20px; height: 20px; border: 1px solid white; border-radius: 50%; position: fixed; pointer-events: none; z-index: 1000; transition: 0.1s; }
+
+        /* FORM CARD */
+        .contact-container {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            padding: 50px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        h2 { font-size: 2.5rem; margin-bottom: 10px; }
+        p { color: #94a3b8; margin-bottom: 30px; }
+
+        /* INPUTS */
+        .input-group { position: relative; margin-bottom: 20px; }
+        input, textarea {
+            width: 100%; padding: 15px; background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+            color: white; font-size: 1rem; outline: none; transition: 0.3s;
+        }
+        input:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); }
+        
+        /* BUTTON */
+        .btn-send {
+            width: 100%; padding: 15px; background: var(--primary); color: white;
+            border: none; border-radius: 10px; font-weight: bold; font-size: 1.1rem;
+            cursor: none; transition: 0.3s;
+        }
+        .btn-send:hover { background: #2563eb; transform: scale(1.02); }
+
+        .back-link { display: block; margin-top: 20px; color: #64748b; text-decoration: none; font-size: 0.9rem; }
+        .back-link:hover { color: white; }
+
+        /* Social Icons */
+        .socials { margin-top: 30px; display: flex; justify-content: center; gap: 20px; }
+        .social-icon {
+            width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.05);
+            display: flex; align-items: center; justify-content: center; color: white;
+            transition: 0.3s; border: 1px solid rgba(255,255,255,0.1);
+        }
+        .social-icon:hover { background: var(--primary); transform: translateY(-5px); }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas"></canvas>
+    <div class="cursor"></div>
+
+    <div class="contact-container">
+        <h2>Get in Touch</h2>
+        <p>Found a bug or have a feature request?</p>
+
+        <form id="contactForm">
+            <div class="input-group">
+                <input type="text" id="subject" placeholder="Subject (e.g. Bug Report)" required>
+            </div>
+            <div class="input-group">
+                <textarea id="message" rows="4" placeholder="Your Message..." required></textarea>
+            </div>
+            <button type="submit" class="btn-send">Send Message <i class="fas fa-paper-plane"></i></button>
+        </form>
+
+      <!--  <div class="socials">
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+        </div>
+-->
+        <a href="index.html" class="back-link">← Back to Home</a>
+    </div>
+
+    <script>
+        // 1. PARTICLES BACKGROUND
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        
+        const particles = [];
+        for(let i=0; i<50; i++) {
+            particles.push({
+                x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 1, vy: (Math.random() - 0.5) * 1, size: Math.random() * 2
+            });
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(2, 6, 23, 0.2)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#3b82f6';
+            particles.forEach(p => {
+                p.x += p.vx; p.y += p.vy;
+                if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // 2. FORM LOGIC (MAILTO)
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            // Apna email yahan daalo
+            window.location.href = `mailto:all4you598@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+        });
+
+        // 3. CURSOR
+        const cursor = document.querySelector('.cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+        });
+    </script>
+</body>
+</html>
